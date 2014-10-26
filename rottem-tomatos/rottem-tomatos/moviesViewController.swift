@@ -22,18 +22,17 @@ class moviesViewController: UIViewController, UITableViewDataSource, UITableView
             var object = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
              self.movies=object["movies"] as [NSDictionary]
             print("object: \(object)")
-            
+            self.tableView.realoadData()
         }
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return movies.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell=tableView.dequeueReusableCellWithIdentifier("movieCell") as movieCell
-        //println("Hello this is row \(indexPath.row), at a section \(indexPath.section)")
-//        cell.textLabel?.text="Hello this is row \(indexPath.row), at a section \(indexPath.section)"
-        cell.titleLabel.text="this is the title"
-        cell.synopsisLabel.text="this is the synopsis"
+        var cell = tableView.dequeueReusableCellWithIdentifier("movieCell") as movieCell
+        var movie = movies[indexPath.row]
+        cell.titleLabel.text = movie["title"] as? String
+        cell.synopsisLabel.text = movie["synopsis"] as? String
         return cell
     }
 
