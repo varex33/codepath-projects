@@ -14,15 +14,17 @@ class moviesViewController: UIViewController, UITableViewDataSource, UITableView
     var movies: [NSDictionary] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        moviesTableView.dataSource=self
-        moviesTableView.delegate=self
-        var url="http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=4aqms2zr3pjp7t8vrgrgxymz&q=us"
+        moviesTableView.dataSource = self
+        moviesTableView.delegate = self
+        var url = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=4aqms2zr3pjp7t8vrgrgxymz&q=us"
         var request = NSURLRequest(URL: (NSURL (string: url)))
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response:NSURLResponse!, data:NSData!, error:NSError!) -> Void in
+            
             var object = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
-             self.movies=object["movies"] as [NSDictionary]
+            
+             self.movies = object["movies"] as [NSDictionary]
             print("object: \(object)")
-            self.tableView.realoadData()
+            self.moviesTableView.reloadData()
         }
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
