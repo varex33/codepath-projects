@@ -35,6 +35,11 @@ class moviesViewController: UIViewController, UITableViewDataSource, UITableView
         var movie = movies[indexPath.row]
         cell.titleLabel.text = movie["title"] as? String
         cell.synopsisLabel.text = movie["synopsis"] as? String
+        
+        var posters = movie["posters"] as NSDictionary
+        var posterUrl = posters["thumbnail"] as String
+        
+        cell.poster.setImageWithURL(NSURL(string: posterUrl))
         return cell
     }
 
